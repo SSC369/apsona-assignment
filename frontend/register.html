@@ -81,9 +81,17 @@
 
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+      <p class="mt-3">
+        Already have an account ? <a href="login.html">Register</a>
+      </p>
     </div>
     <script type="text/javascript">
-      const host = "http://localhost:3000";
+      const host = "https://apsona-backend-alpha.vercel.app";
+      const noteToken = localStorage.getItem("noteToken");
+      if (noteToken !== undefined) {
+        window.location.href = "notes.html";
+      }
+      console.log(noteToken);
       const email = document.getElementById("email");
       const password = document.getElementById("password");
       const username = document.getElementById("username");

@@ -9,6 +9,21 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+.tag {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background-color: black;
+  color: white;
+}
+.tags-container {
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  gap: 10px;
+  align-item: center;
+  flex-wrap: wrap;
+}
+
 .form-container {
   min-width: 300px;
   background: linear-gradient(#212121, #212121) padding-box,
@@ -147,8 +162,6 @@
   height: 200px;
   overflow: auto;
   gap: 0.5em;
-  display: grid;
-  place-content: center;
 }
 
 .card-button {

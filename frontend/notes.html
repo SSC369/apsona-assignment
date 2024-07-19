@@ -40,13 +40,16 @@
   </head>
   <body>
     <div
+      style="height: 100dvh"
       id="main-container"
-      class="d-flex flex-column p-5 align-items-center gap-5"
+      class="bg-dark d-flex flex-column p-5 align-items-center gap-5"
     >
       <div class="d-flex flex-column">
-        <h1>Add Note</h1>
+        <h1 class="text-center text-light mb-4">Notes</h1>
+
         <div class="form-container">
           <form onsubmit="handleNoteSubmit(event)" class="form">
+            <h4>Add Note</h4>
             <div class="form-group">
               <label for="title">Title</label>
               <input

@@ -1,4 +1,4 @@
-const url = "http://localhost:3000";
+const url = "https://apsona-backend-alpha.vercel.app";
 const noteToken = localStorage.getItem("noteToken");
 
 if (!noteToken) {
@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (notesData.length === 0) {
       const empty = document.createElement("h2");
       empty.style.textAlign = "center !important";
+      empty.classList.add("text-light");
       empty.textContent = "Notes are empty!";
       mainContainer.appendChild(empty);
     } else {
@@ -46,6 +47,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const cardTitleParagraph = document.createElement("p");
         cardTitleParagraph.classList.add("text-title");
         cardTitleParagraph.textContent = title; // Set the title text
+
+        const tagsContainer = document.createElement("ul");
+        tagsContainer.classList.add("tags-container");
+
+        for (let j = 0; j < tags.length; j++) {
+          const tag = document.createElement("li");
+          tag.classList.add("tag");
+          tag.textContent = tags[j];
+          tagsContainer.appendChild(tag);
+        }
 
         const cardBodyParagraph = document.createElement("p");
         cardBodyParagraph.classList.add("text-body");
@@ -72,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cardDetailsDiv.appendChild(cardTitleParagraph);
         cardDetailsDiv.appendChild(cardBodyParagraph);
         cardListItem.appendChild(deleteButton);
+        cardDetailsDiv.appendChild(tagsContainer);
         cardListItem.appendChild(cardDetailsDiv);
 
         notesContainer.appendChild(cardListItem);
