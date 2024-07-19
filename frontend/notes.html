@@ -38,12 +38,16 @@
       }
     </style>
   </head>
-  <body>
+  <body class="">
     <div
       style="height: 100dvh"
       id="main-container"
-      class="bg-dark d-flex flex-column p-5 align-items-center gap-5"
+      class="bg-dark d-flex flex-column p-2 pt-3 align-items-center gap-3"
     >
+      <button onclick="handleLogout()" type="button" class="button">
+        Logout
+      </button>
+
       <div class="d-flex flex-column">
         <h1 class="text-center text-light mb-4">Notes</h1>
 
@@ -133,6 +137,12 @@
             window.location.reload();
           }
         }
+      };
+
+      const handleLogout = () => {
+        localStorage.removeItem("noteToken");
+        alert("Logged out!");
+        window.location.href = "login.html";
       };
     </script>
   </body>
