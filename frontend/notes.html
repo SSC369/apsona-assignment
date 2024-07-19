@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes</title>
+    <link rel="stylesheet" href="notes.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+
+    <script></script>
+
+    <style>
+      .hide {
+        display: none !important;
+      }
+      .show {
+        display: block !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="main-container"
+      class="d-flex flex-column p-5 align-items-center gap-5"
+    >
+      <div class="d-flex flex-column">
+        <h1>Add Note</h1>
+        <div class="form-container">
+          <form onsubmit="handleNoteSubmit(event)" class="form">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input
+                placeholder="Enter title of note"
+                required=""
+                name="email"
+                id="title"
+                type="text"
+              />
+            </div>
+            <div class="form-group">
+              <label for="tags">Tags</label>
+              <input
+                placeholder="Enter tags with comma seperated."
+                name="tags"
+                id="tags"
+                type="text"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notes">Note</label>
+              <textarea cols="50" rows="10" id="notes"> </textarea>
+            </div>
+            <button type="submit" class="form-submit-btn">Submit</button>
+          </form>
+        </div>
+      </div>
+
+      <div
+        id="notes-data-container"
+        class="d-flex flex-wrap justify-content-between align-items-center w-75 gap-2 position-relative"
+      >
+        <!-- rendering notes -->
+        <ul
+          id="notes-container"
+          class="w-100 d-flex flex-wrap align-items-start gap-2"
+        ></ul>
+      </div>
+    </div>
+    <script src="notes.js"></script>
+
+    <script type="text/javascript">
+      const title = document.getElementById("title");
+      const tags = document.getElementById("tags");
+      const notes = document.getElementById("notes");
+
+      const noteValidation = () => {
+        if (title.value === "" || tags.value === "" || notes.value === "") {
+          alert("Please enter valid note data!");
+          return false;
+        }
+        return true;
+      };
+
+      const handleNoteSubmit = async (event) => {
+        event.preventDefault();
+        if (noteValidation()) {
+          const jsonBody = JSON.stringify({
+            title: title.value,
+            notes: notes.value,
+            tags: tags.value.split(","),
+          });
+          console.log(jsonBody);
+          const options = {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              "auth-token": noteToken,
+            },
+            body: jsonBody,
+          };
+
+          const res = await fetch(`${url}/api/note/add-note`, options);
+          const { msg } = await res.json();
+          console.log(msg);
+          if (res.ok === true) {
+            title.value = "";
+            tags.value = "";
+            notes.value = "";
+            window.location.reload();
+          }
+        }
+      };
+    </script>
+  </body>
+</html>
